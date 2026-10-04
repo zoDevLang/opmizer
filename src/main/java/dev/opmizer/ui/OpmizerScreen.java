@@ -16,7 +16,7 @@ import dev.opmizer.config.Setting;
 import dev.opmizer.config.SettingRegistry;
 import dev.opmizer.core.OpmizerClient;
 import dev.opmizer.profiler.TestResult;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -168,7 +168,7 @@ public final class OpmizerScreen extends Screen {
 
 	// ------------------------------------------------------------------- drawing
 	@Override
-	public void renderBackground(GuiGraphics g, int mx, int my, float pt) {
+	public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float pt) {
 		Gfx.fill(g, 0, 0, width, height, 0xE60B0E12);
 		Gfx.fill(g, 5, 3, width - 5, height - 3, 0xFF12161B);
 		Gfx.fill(g, 5, 3, width - 5, 4, ACCENT);
@@ -176,8 +176,8 @@ public final class OpmizerScreen extends Screen {
 	}
 
 	@Override
-	public void render(GuiGraphics g, int mx, int my, float pt) {
-		super.render(g, mx, my, pt); // background + widgets
+	public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float pt) {
+		super.extractRenderState(g, mx, my, pt); // background + widgets
 
 		Gfx.text(g, font, "OPMIZER", LEFT, 10, ACCENT);
 		Gfx.text(g, font, "measure > configure > test", LEFT, 21, DIM);
@@ -197,7 +197,7 @@ public final class OpmizerScreen extends Screen {
 		}
 	}
 
-	private void drawSettings(GuiGraphics g, int mx, int my) {
+	private void drawSettings(GuiGraphicsExtractor g, int mx, int my) {
 		Setting hovered = null;
 		var slot = cfg.working(selected);
 		var saved = cfg.saved(selected);
@@ -224,7 +224,7 @@ public final class OpmizerScreen extends Screen {
 		else Gfx.text(g, font, "Hover a setting to see what it does and what it costs.", CX, height - 78, DIM);
 	}
 
-	private void drawInfo(GuiGraphics g, Setting s) {
+	private void drawInfo(GuiGraphicsExtractor g, Setting s) {
 		if (wrappedFor != s) {
 			wrappedFor = s;
 			wrapped.clear();
@@ -263,7 +263,7 @@ public final class OpmizerScreen extends Screen {
 		if (line.length() > 0) wrapped.add(new String[] { line.toString(), Integer.toHexString(color) });
 	}
 
-	private void drawBenchmark(GuiGraphics g) {
+	private void drawBenchmark(GuiGraphicsExtractor g) {
 		int y = ROW_Y + 48;
 		String[] lines = {
 				"Runs all 5 slots one after another in the CURRENT world, then restores your settings.",
@@ -281,7 +281,7 @@ public final class OpmizerScreen extends Screen {
 		}
 	}
 
-	private void drawResults(GuiGraphics g) {
+	private void drawResults(GuiGraphicsExtractor g) {
 		int y = ROW_Y;
 		var hist = bench.history();
 		if (hist.isEmpty() && bench.lastSingle() == null) {
@@ -328,7 +328,7 @@ public final class OpmizerScreen extends Screen {
 		}
 	}
 
-	private void drawProfiles(GuiGraphics g) {
+	private void drawProfiles(GuiGraphicsExtractor g) {
 		int y = ROW_Y;
 		Gfx.text(g, font, "5 slots. Each stores EVERY setting. Use S1-S5 above, then Save / Load / Revert / Test.", CX, y, DIM);
 		y += 16;

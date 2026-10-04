@@ -7,7 +7,6 @@ import java.util.Map;
 
 import dev.opmizer.config.Setting.Type;
 import net.minecraft.client.CloudStatus;
-import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.server.level.ParticleStatus;
@@ -67,12 +66,9 @@ public final class SettingRegistry {
 				"Locks presentation to the monitor refresh rate.",
 				"+ Removes tearing", "- Caps FPS at refresh rate; can add input latency; distorts benchmarks",
 				() -> o().enableVsync().get() ? 1 : 0, v -> o().enableVsync().set(v != 0)));
-		l.add(Setting.game(Category.RENDERING, "graphics", "Graphics Mode", E, 0, 0, 1,
-				names(GraphicsStatus.values()), null, Risk.MEDIUM,
-				"Vanilla graphics quality tier.",
-				"+ Lower tiers cost less GPU time", "- Lower visual quality; may reload resources",
-				() -> o().graphicsMode().get().ordinal(),
-				v -> o().graphicsMode().set(GraphicsStatus.values()[v])));
+		l.add(Setting.unavailable(Category.RENDERING, "graphics", "Graphics Mode", Risk.MEDIUM,
+				"Vanilla graphics quality tier.", "", "",
+				"GraphicsStatus no longer exists in 26.1; the replacement option is not wired up yet."));
 		l.add(Setting.game(Category.RENDERING, "clouds", "Clouds", E, 0, 0, 1, names(CloudStatus.values()), null,
 				Risk.LOW, "Cloud rendering mode.",
 				"+ Off/Fast is cheaper on the GPU", "- Visual change only",
