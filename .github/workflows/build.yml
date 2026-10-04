@@ -17,7 +17,17 @@ jobs:
         with:
           gradle-version: current
       - name: Build
-        run: gradle build --stacktrace
+        run: |
+          set +e
+          gradle build --console=plain 2>&1 | tee build.log
+          code=${PIPESTATUS[0]}
+          {
+            echo '### Build errors'
+            echo '```'
+            grep -E -B1 -A4 'error:|What went wrong|Could not|FAILED' build.log | head -80
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY
+          exit $code
       - uses: actions/upload-artifact@v4
         if: always()
         with:
