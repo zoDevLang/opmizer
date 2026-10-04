@@ -5,7 +5,7 @@
   "name": "OPMIZER",
   "description": "Measure-first performance configuration framework. Five full config slots, a real in-game benchmark, no promised FPS.",
   "authors": ["OPMIZER contributors"],
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/opmizer/icon.png",
   "environment": "client",
   "entrypoints": {
