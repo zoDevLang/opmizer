@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "opmizer",
+  "version": "${version}",
+  "name": "OPMIZER",
+  "description": "Measure-first performance configuration framework. Five full config slots, a real in-game benchmark, no promised FPS.",
+  "authors": ["OPMIZER contributors"],
+  "license": "All-Rights-Reserved",
+  "icon": "assets/opmizer/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.opmizer.core.OpmizerClient"]
+  },
+  "mixins": ["opmizer.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~26.1",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
