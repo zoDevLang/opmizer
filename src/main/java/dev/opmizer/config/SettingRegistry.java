@@ -94,8 +94,8 @@ public final class SettingRegistry {
 				Risk.MEDIUM, "JVM scheduling priority hint for the client (render + tick) thread.",
 				"+ May help the client thread win CPU time on a busy machine",
 				"- Often ignored by the OS without privileges; can starve other apps. Measure it",
-				() -> Minecraft.getInstance().getRunningThread().getPriority(),
-				v -> Minecraft.getInstance().getRunningThread().setPriority(v)));
+				() -> dev.opmizer.core.OpmizerClient.CLIENT_THREAD.getPriority(),
+				v -> dev.opmizer.core.OpmizerClient.CLIENT_THREAD.setPriority(v)));
 		l.add(Setting.unavailable(Category.CPU, "core_affinity", "Core Affinity", Risk.HIGH,
 				"Pinning the game to specific CPU cores.", "", "",
 				"Requires OS-level changes. OPMIZER never modifies OS settings."));

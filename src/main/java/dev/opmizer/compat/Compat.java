@@ -44,7 +44,7 @@ public final class Compat {
 
 	public static void chat(String line) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.gui != null) mc.gui.getChat().addMessage(Component.literal(line));
+		if (mc.gui != null) mc.gui.getChat().addClientSystemMessage(Component.literal(line));
 	}
 
 	public static void actionBar(String line) {

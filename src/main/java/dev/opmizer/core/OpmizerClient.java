@@ -13,12 +13,15 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 public final class OpmizerClient implements ClientModInitializer {
 	public static final String ID = "opmizer";
 	public static final Logger LOG = LoggerFactory.getLogger("OPMIZER");
+	/** The render/client thread, captured at startup (Minecraft#getRunningThread is protected). */
+	public static volatile Thread CLIENT_THREAD = Thread.currentThread();
 
 	public static final ConfigManager CONFIG = new ConfigManager();
 	public static final BenchmarkRunner BENCH = new BenchmarkRunner(CONFIG);
 
 	@Override
 	public void onInitializeClient() {
+		CLIENT_THREAD = Thread.currentThread();
 		Keybinds.register();
 		OpmCommand.register();
 
